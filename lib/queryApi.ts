@@ -15,7 +15,7 @@ async function query(prompt: string, chatId: string, model: string) {
 		frequency_penalty: 0,
 		presence_penalty: 0,
 	}).then(res => res.choices[0].message).catch(
-    (err) => `ChatGPT was unable to find an answer for that! (Error: ${err.message})`
+    (err) => `ChatGPT was unable to find an answer for that! (Error: ${ err.message})`
   )
   return res
 }
