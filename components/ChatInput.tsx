@@ -15,7 +15,7 @@ function ChatInput({ id: chatId }: Props) {
 	const { data: session } = useSession()
 
 	// TODO: Use swr to get model
-	const model = "text-davinci-003"
+	const model = "gpt-3.5-turbo"
 
 	async function sendMessage(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault()
@@ -48,24 +48,23 @@ function ChatInput({ id: chatId }: Props) {
 		)
 
 		// Toast notification
-    const notification = toast.loading('ChatGPT is thinking...')
+		const notification = toast.loading("ChatGPT is thinking...")
 
-		await fetch("/api/askQuestion",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					prompt: input,
-					chatId,
-					model,
-					session,
-				})
-			}).then(() => {
-        // toast to say successful
-        toast.success('ChatGPT has responded!', {id: notification})
-      })
+		await fetch("/api/askQuestion", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				prompt: input,
+				chatId,
+				model,
+				session,
+			}),
+		}).then(() => {
+			// toast to say successful
+			toast.success("ChatGPT has responded!", { id: notification })
+		})
 	}
 
 	return (
