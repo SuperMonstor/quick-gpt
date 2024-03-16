@@ -1,5 +1,5 @@
 interface Message {
-	text: string
+	text: string | ChatCompletionMessage
 	createdAt: admin.firestore.Timestamp
 	user: {
 		_id: string

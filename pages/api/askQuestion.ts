@@ -24,10 +24,11 @@ export default async function handler(
 	}
 
 	const response = await query(prompt, chatId, model)
+	console.log(response.valueOf())
 
 	const message: Message = {
 		text:
-			response.toString() || "ChatGPT was unable to find an answer for that!",
+			response.valueOf() || "ChatGPT was unable to find an answer for that!",
 		createdAt: admin.firestore.Timestamp.now(),
 		user: {
 			_id: "ChatGPT",

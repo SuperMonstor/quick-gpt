@@ -25,7 +25,10 @@ function ChatInput({ id: chatId }: Props) {
 		setPrompt("")
 
 		const message: Message = {
-			text: input,
+			text: {
+				content: input,
+				role: "user",
+			},
 			createdAt: serverTimestamp(),
 			user: {
 				_id: session?.user?.email!,
