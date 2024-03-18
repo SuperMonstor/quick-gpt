@@ -5,6 +5,8 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore"
 import { useSession } from "next-auth/react"
 import { FormEvent, useState } from "react"
 import toast from "react-hot-toast"
+import ModelSelection from "./ModelSelection"
+import useSWR from "swr"
 
 type Props = {
 	id: string
@@ -14,8 +16,9 @@ function ChatInput({ id: chatId }: Props) {
 	const [prompt, setPrompt] = useState("")
 	const { data: session } = useSession()
 
-	// TODO: Use swr to get model
-	const model = "gpt-3.5-turbo"
+	const { data: model } = useSWR("model", {
+		fallbackData: "gpt-3.5-turbo",
+	})
 
 	async function sendMessage(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault()
@@ -90,7 +93,9 @@ function ChatInput({ id: chatId }: Props) {
 					<PaperAirplaneIcon className="h-4 w-4 -rotate-45" />
 				</button>
 			</form>
-			<div>{/* Model Selection */}</div>
+			<div className="md:hidden">
+				<ModelSelection />
+			</div>
 		</div>
 	)
 }
